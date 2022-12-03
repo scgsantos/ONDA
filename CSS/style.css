@@ -1,0 +1,88 @@
+:root {
+    /* layout colors */
+    --green: #3A8960;
+    --beige: #E1D5CA;
+    --black: #2D2E2F;
+
+
+    font-size: 21px; /* 1rem is now 16px */
+}
+
+* {
+    font-size: 1rem;
+    font-family: "Nippo", sans-serif;
+    font-weight: normal;
+}
+
+html, body {
+    margin: 0;
+    position: fixed;
+}
+
+strong {
+    font-family: "Boxing", sans-serif;
+}
+
+button {
+    background: transparent;
+    border: 2px solid;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+#landing div {
+    text-align: center;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+#landing div img, #landing div a {
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#landing img {
+    margin-top: 30%;
+}
+
+#landing a {
+    margin-top: 2rem;
+}
+
+#landing .ouvintes {
+    background-color: var(--beige);
+    color: var(--black);
+}
+
+#landing .artistas {
+    background-color: var(--black);
+    color: var(--beige);
+}
+
+#landing .ouvintesbtn {
+    border-color: var(--black);
+    color: var(--black);
+}
+
+#landing .ouvintesbtn:hover {
+    color: var(--beige);
+    background-color: var(--black);
+}
+
+#landing .artistasbtn {
+    border-color: var(--beige);
+    color: var(--beige);
+}
+
+#landing .artistasbtn:hover {
+    color: var(--black);
+    background-color: var(--beige);
+}
