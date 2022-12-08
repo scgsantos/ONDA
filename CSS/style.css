@@ -173,6 +173,78 @@ button {
 .sidenav button {
     font-weight: 500;
     margin: 1rem auto;
+    width: 100%;
+}
+
+#bibliodrop:hover #biblionav {
+    display: block;
+}
+
+#bibliodrop:hover #bibliobtn {
+    margin: 0 auto -2px;
+}
+
+.dropdown-content a {
+    color: var(--black);
+    border: 2px solid var(--black);
+    background: transparent;
+    padding: 0.4rem 0.3rem;
+    text-align: center;
+    display: block;
+    font-size: 0.9rem;
+    width: 80%;
+    margin: 0 auto -2px;
+    float: none;
+}
+
+.dropdown-content .ouvintelink:hover {
+    background-color: var(--black);
+    color: var(--beige);
+}
+
+.dropdown-content .artistalink:hover {
+    background-color: var(--beige);
+    color: var(--black);
+}
+
+.dropdown-content {
+    animation: growDown 200ms linear forwards;
+    transform-origin: top center;
+}
+
+.dropdown:not(:hover) .dropdown-content {
+    animation: growUp 200ms linear forwards;
+    transform-origin: top center;
+    height: 0;
+    z-index: 1;
+}
+
+.dropdown:not(:hover) button {
+    margin-bottom: -2px;
+}
+
+@keyframes growDown {
+    0% {
+        transform: scaleY(0);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes growUp {
+    0% {
+        transform: scaleY(1);
+    }
+    100% {
+        transform: scaleY(0);
+    }
+}
+
+.dropdown .ouvintesbtn:hover {
+    background-color: transparent;
+    color: var(--black);
+    cursor: default;
 }
 
 .ouvinte .sidenav {

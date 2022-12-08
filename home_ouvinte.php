@@ -15,9 +15,16 @@
         $userlogged = $_SESSION['username'];
         echo "<h3><b>$userlogged</b>'s ONDA</h3>";
         ?>
-        <a href="#">
-            <button class="ouvintesbtn">Biblioteca</button>
-        </a>
+
+        <div class="dropdown" id="bibliodrop">
+            <button class="ouvintesbtn" id="bibliobtn">Biblioteca</button>
+            <div class="dropdown-content" id="biblionav">
+                <a href="#" class="ouvintelink">Todas as músicas</a>
+                <a href="#" class="ouvintelink">Playlists</a>
+                <a href="#" class="ouvintelink">Favoritas</a>
+            </div>
+        </div>
+
         <a href="#">
             <button class="ouvintesbtn">Novos Lançamentos</button>
         </a>
