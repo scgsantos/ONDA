@@ -10,15 +10,16 @@
     <link href="https://api.fontshare.com/v2/css?f[]=nippo@200,300,500,700,400&display=swap" rel="stylesheet">
     <link href="https://api.fontshare.com/v2/css?f[]=boxing@400&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="artista">
 
 <main class="container" id="auth">
+    <div class="logo"><img src="assets/logoONDA_fundoescuro.svg" width="250" height="" alt="logo_fundoescuro"></div>
     <div class="form">
-        <h1>LOGIN</h1>
-        <form action="incPHP/login.php" method="post">
-            <input title="username" placeholder="username" type="text" name="user" autocomplete="off"><br>
+        <h2>Login</h2>
+        <form action="incPHP/login.php?op=art" method="post" autocomplete="off">
+            <input title="username" placeholder="username" type="text" name="user"><br>
             <input title="password" placeholder="password" type="password" name="pwd"><br>
-            <button type="submit" name="login">></button>
+            <button type="submit" name="login" class="artistasbtn">ENTRAR</button>
         </form>
         <?php
         if (isset($_GET["error"])) {
@@ -28,12 +29,12 @@
         ?>
     </div>
     <div class="form">
-        <h1>REGISTO</h1>
-        <form action="incPHP/registo.php" method="post">
-            <input title="username" placeholder="username" type="text" name="user" autocomplete="off"><br>
+        <h2>Registo</h2>
+        <form action="incPHP/registo.php?op=art" method="post" autocomplete="off">
+            <input title="username" placeholder="username" type="text" name="user"><br>
             <input title="password" placeholder="password" type="password" name="pwd"><br>
             <input title="password" placeholder="confirmar password" type="password" name="pwd_confirm"><br>
-            <button type="submit" name="registo">></button>
+            <button type="submit" name="registo" class="artistasbtn">REGISTAR</button>
         </form>
         <?php
         if (isset($_GET["error"])) {

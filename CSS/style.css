@@ -4,30 +4,21 @@
     --beige: #E1D5CA;
     --black: #2D2E2F;
 
-
-    font-size: 21px; /* 1rem is now 16px */
+    font-size: 19px; /* 1rem is now 21px */
 }
 
 * {
     font-size: 1rem;
     font-family: "Nippo", sans-serif;
-    font-weight: normal;
+    font-weight: 400;
 }
 
 html, body {
     margin: 0;
-    position: fixed;
 }
 
-strong {
-    font-family: "Boxing", sans-serif;
-}
-
-button {
-    background: transparent;
-    border: 2px solid;
-    cursor: pointer;
-    padding: 0.5rem;
+a {
+    text-decoration: none;
 }
 
 .container {
@@ -35,6 +26,44 @@ button {
     height: 100vh;
     display: flex;
 }
+
+strong {
+    font-family: "Boxing", sans-serif;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+b { font-weight: 500; }
+
+button {
+    background: transparent;
+    border: 2px solid;
+    cursor: pointer;
+    padding: 0.4rem 0.7rem;
+    display: block;
+    margin: 1.5rem auto 0;
+    text-align: center;
+    font-weight: 400;
+}
+
+.error {
+    color: red;
+    font-size: 0.8rem;
+    font-weight: 300;
+    text-align: center;
+}
+
+#landing { position: fixed; }
 
 #landing div {
     text-align: center;
@@ -57,32 +86,101 @@ button {
     margin-top: 2rem;
 }
 
-#landing .ouvintes {
+.ouvinte {
     background-color: var(--beige);
     color: var(--black);
 }
 
-#landing .artistas {
+.artista {
     background-color: var(--black);
     color: var(--beige);
 }
 
-#landing .ouvintesbtn {
+.ouvintesbtn {
     border-color: var(--black);
     color: var(--black);
 }
 
-#landing .ouvintesbtn:hover {
+.ouvintesbtn:hover {
     color: var(--beige);
     background-color: var(--black);
 }
 
-#landing .artistasbtn {
+.artistasbtn {
     border-color: var(--beige);
     color: var(--beige);
 }
 
-#landing .artistasbtn:hover {
+.artistasbtn:hover {
     color: var(--black);
     background-color: var(--beige);
+}
+
+.artista input {
+    color: var(--beige);
+    border: 2px solid var(--beige);
+    background: transparent;
+    padding: 0.4rem 0.7rem;
+    text-align: center;
+    margin-bottom: -2px;
+}
+
+.artista input::placeholder {
+    color: var(--beige);
+    font-weight: 300;
+}
+
+.ouvinte input {
+    color: var(--black);
+    border: 2px solid var(--black);
+    background: transparent;
+    padding: 0.4rem 0.7rem;
+    text-align: center;
+    margin-bottom: -2px;
+}
+
+.ouvinte input::placeholder {
+    color: var(--black);
+    font-weight: 300;
+}
+
+#auth {
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+    height: 90%;
+    margin-top: 7%;
+}
+
+#auth .form {
+    margin: 5rem 2rem;
+}
+
+#auth .logo {
+    flex-basis: 100%;
+    text-align: center;
+}
+
+#home {
+    align-items: stretch;
+    text-align: center;
+}
+
+.sidenav h3 {
+    margin-bottom: 3rem;
+}
+
+.sidenav button {
+    font-weight: 500;
+    margin: 1rem auto;
+}
+
+.ouvinte .sidenav {
+    padding: 1.5rem;
+    border-right: 2px solid var(--black);
+}
+
+.artista .sidenav {
+    padding: 1.5rem;
+    border-right: 2px solid var(--beige);
 }
