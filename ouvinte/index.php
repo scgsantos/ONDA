@@ -13,7 +13,7 @@
         <a href="index.php"><img src="../assets/logoONDA_fundoclaro.svg" width="150" height="" alt="logo"></a>
         <?php
         $userlogged = $_SESSION['username'];
-        echo "<h3><b>$userlogged</b>'s ONDA</h3>";
+        echo "<h3 style='text-transform: uppercase'>$userlogged's ONDA</h3>";
         ?>
 
         <div class="dropdown" id="bibliodrop">

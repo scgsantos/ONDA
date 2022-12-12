@@ -3,12 +3,24 @@ $str = "dbname=ONDA user=postgres password=postgres host=localhost port=5432";
 $conn = pg_connect($str) or die ("Erro na ligação");
 
 $songs = pg_query($conn, "SELECT * FROM songs") or die;
+$error = '';
+
+// ordenar lista
 if (isset($_GET["sort"], $_GET["order"])) {
     $sort = $_GET['sort'];
     $order = $_GET['order'];
 
     $songs = pg_query($conn, "SELECT * FROM songs ORDER BY $sort $order ") or die;
 }
+// pesquisar lista
+if (isset($_GET["search"])) {
+    $search = $_GET['search'];
+
+    $songs = pg_query($conn, "SELECT * FROM songs WHERE title ILIKE '%$search%'") or die;
+
+    if (pg_num_rows($songs) == 0) $error = 'Não foram encontrados resultados com base na tua pesquisa';
+}
+
 $song = pg_fetch_all($songs);
 ?>
 
@@ -54,9 +66,17 @@ $song = pg_fetch_all($songs);
     <section class="biblioteca" id="all">
         <h1>Biblioteca</h1>
         <h2>Todas as músicas</h2>
-        <input name="search" type="text" placeholder="Pesquisar por título ou artista">
+
+        <form method="post" action="../../incPHP/pesquisarlista.php">
+            <input name="search" type="text" placeholder="Pesquisar por título ou artista">
+            <button type="submit" name="searchlist" class="ouvintesbtn">Pesquisar</button>
+        </form>
+        <?php
+        echo '<p class="error">'.$error.'</p>';
+        ?>
+
         <form method="post" action="../../incPHP/ordenarlista.php">
-            <legend>Ordenar por</legend>
+            <p>Ordenar por</p>
             <fieldset>
                 <label><input type="radio" name="sort" value="title">título</label>
                 <label><input type="radio" name="sort" value="genre">género</label>
@@ -66,7 +86,7 @@ $song = pg_fetch_all($songs);
                 <label><input type="radio" name="order" value="asc">ascendente</label>
                 <label><input type="radio" name="order" value="desc">descendente</label>
             </fieldset>
-            <button type="submit" name="list" class="ouvintesbtn">Ordenar</button>
+            <button type="submit" name="sortlist" class="ouvintesbtn">Ordenar</button>
         </form>
         <div class="table">
             <table>
