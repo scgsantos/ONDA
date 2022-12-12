@@ -12,13 +12,25 @@ if (isset($_GET["sort"], $_GET["order"])) {
 
     $songs = pg_query($conn, "SELECT * FROM songs ORDER BY $sort $order ") or die;
 }
+
 // pesquisar lista
 if (isset($_GET["search"])) {
     $search = $_GET['search'];
 
-    $songs = pg_query($conn, "SELECT * FROM songs WHERE title ILIKE '%$search%'") or die;
+    // por título
+    $condition1 = "title ILIKE '%$search%'";
 
-    if (pg_num_rows($songs) == 0) $error = 'Não foram encontrados resultados com base na tua pesquisa';
+    // por artista
+    $artists = pg_query($conn, "SELECT * FROM artists WHERE name ILIKE '%$search%'") or die;
+    $artist = pg_fetch_all($artists);
+    $a_user = array();
+    foreach ($artist as $a) array_push($a_user, $a['username']);
+    $arr = "('" . implode("', '", $a_user) . "')";
+    $condition2 = "artist IN $arr";
+
+    $songs = pg_query($conn, "SELECT * FROM songs WHERE $condition1 OR $condition2") or die;
+
+    if (pg_num_rows($songs) == 0) $error = 'Não foram encontrados resultados';
 }
 
 $song = pg_fetch_all($songs);
@@ -72,7 +84,7 @@ $song = pg_fetch_all($songs);
             <button type="submit" name="searchlist" class="ouvintesbtn">Pesquisar</button>
         </form>
         <?php
-        echo '<p class="error">'.$error.'</p>';
+        echo '<p class="error">' . $error . '</p>';
         ?>
 
         <form method="post" action="../../incPHP/ordenarlista.php">
