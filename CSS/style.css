@@ -4,7 +4,7 @@
     --beige: #E1D5CA;
     --black: #2D2E2F;
 
-    font-size: 19px; /* 1rem is now 21px */
+    font-size: 18px; /* 1rem is now 21px */
 }
 
 * {
@@ -27,19 +27,31 @@ a {
     display: flex;
 }
 
+section {
+    flex-grow: 2;
+    padding: 1.5rem;
+}
+
 strong {
     font-family: "Boxing", sans-serif;
 }
 
+h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
 h2 {
     font-size: 1.4rem;
-    font-weight: 400;
+    font-weight: 500;
     text-align: center;
 }
 
 h3 {
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: 1.1rem;
+    font-weight: 500;
     text-align: center;
 }
 
@@ -54,6 +66,10 @@ button {
     margin: 1.5rem auto 0;
     text-align: center;
     font-weight: 400;
+}
+
+fieldset {
+    border: none;
 }
 
 .error {
@@ -161,9 +177,13 @@ button {
     text-align: center;
 }
 
-#home {
+.container:not(#auth), .container:not(#landing) {
     align-items: stretch;
     text-align: center;
+}
+
+.sidenav {
+    width: 15%;
 }
 
 .sidenav h3 {
@@ -182,6 +202,19 @@ button {
 
 #bibliodrop:hover #bibliobtn {
     margin: 0 auto -2px;
+}
+
+#pessoalbtn {
+    margin: 0 auto -2px;
+}
+
+#pessoalnav:hover {
+    margin: 0;
+}
+
+#pessoaldrop:hover #pessoalnav {
+    display: block;
+    margin: 0;
 }
 
 .dropdown-content a {
@@ -208,37 +241,17 @@ button {
 }
 
 .dropdown-content {
-    animation: growDown 200ms linear forwards;
-    transform-origin: top center;
+    display: none;
 }
 
 .dropdown:not(:hover) .dropdown-content {
-    animation: growUp 200ms linear forwards;
-    transform-origin: top center;
+    display: none;
     height: 0;
     z-index: 1;
 }
 
 .dropdown:not(:hover) button {
     margin-bottom: -2px;
-}
-
-@keyframes growDown {
-    0% {
-        transform: scaleY(0);
-    }
-    100% {
-        transform: scaleY(1);
-    }
-}
-
-@keyframes growUp {
-    0% {
-        transform: scaleY(1);
-    }
-    100% {
-        transform: scaleY(0);
-    }
 }
 
 .dropdown .ouvintesbtn:hover {
@@ -255,4 +268,63 @@ button {
 .artista .sidenav {
     padding: 1.5rem;
     border-right: 2px solid var(--beige);
+}
+
+.biblioteca h2 {
+    text-align: left;
+}
+
+.biblioteca h3 {
+    margin: 0;
+    text-align: left;
+}
+
+.biblioteca table {
+    text-align: left;
+    margin: 0 auto;
+    display: table;
+    width: 100%;
+    border: 2px solid var(--black);
+    box-sizing: border-box;
+    border-collapse: collapse;
+    padding: 1rem;
+    table-layout: fixed;
+    white-space: nowrap;
+}
+
+.biblioteca table th:nth-child(1) {
+    width: 30%;
+}
+
+.biblioteca table th:nth-child(2) {
+    width: 10%;
+}
+
+.biblioteca table th:nth-child(3) {
+    width: 10%;
+}
+
+.biblioteca table th:nth-child(4) {
+    width: 7%;
+}
+
+.biblioteca table th:nth-child(5) {
+    width: 10%;
+}
+
+.biblioteca table th:nth-child(6) {
+    width: 2%;
+}
+
+.biblioteca th {
+    border: 2px solid var(--black);
+    padding: 0.2rem 0.7rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.biblioteca td {
+    padding: 0.4rem 0.7rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

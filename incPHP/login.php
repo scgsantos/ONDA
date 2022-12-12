@@ -9,25 +9,23 @@ if (isset($_POST["login"])) {
     if ($op == 'art') {
         $username = $_POST['user'];
         $pwd = $_POST['pwd'];
-        $lvl = 'artista';
 
         if ((empty($username) || empty($pwd)) !== false) {
-            header("location:../auth_artista.php?error=l_emptyfields");
+            header("location:../artista/auth.php?error=l_emptyfields");
             exit();
         } else {
-            $result = pg_query($conn, "SELECT * FROM users WHERE username = '$username' and password = '$pwd' and level = '$lvl'") or die;
+            $result = pg_query($conn, "SELECT * FROM artists WHERE username = '$username' and password = '$pwd'") or die;
             $row = pg_fetch_array($result);
 
-            if ($row['username'] == $username && $row['password'] == $pwd && $row['level'] == $lvl) {
+            if ($row['username'] == $username && $row['password'] == $pwd) {
                 session_start();
                 $_SESSION['username'] = $username;
                 $_SESSION['password'] = $pwd;
-                $_SESSION['level'] = $lvl;
 
-                header("Location: ../home_artista.php");
+                header("Location: ../artista/index.php");
                 exit();
             } else {
-                header("location:../auth_artista.php?error=wronglogin");
+                header("location:../artista/auth.php?error=wronglogin");
                 exit();
             }
         }
@@ -36,25 +34,23 @@ if (isset($_POST["login"])) {
     else if ($op == 'ouv') {
         $username = $_POST['user'];
         $pwd = $_POST['pwd'];
-        $lvl = 'ouvinte';
 
         if ((empty($username) || empty($pwd)) !== false) {
-            header("location:../auth_ouvinte.php?error=l_emptyfields");
+            header("location:../ouvinte/auth.php?error=l_emptyfields");
             exit();
         } else {
-            $result = pg_query($conn, "SELECT * FROM users WHERE username = '$username' AND password = '$pwd' AND level = '$lvl'") or die;
+            $result = pg_query($conn, "SELECT * FROM clients WHERE username = '$username' AND password = '$pwd'") or die;
             $row = pg_fetch_array($result);
 
-            if ($row['username'] == $username && $row['password'] == $pwd && $row['level'] == $lvl) {
+            if ($row['username'] == $username && $row['password'] == $pwd) {
                 session_start();
                 $_SESSION['username'] = $username;
                 $_SESSION['password'] = $pwd;
-                $_SESSION['level'] = $lvl;
 
-                header("Location: ../home_ouvinte.php");
+                header("location: ../ouvinte/index.php");
                 exit();
             } else {
-                header("location:../auth_ouvinte.php?error=wronglogin");
+                header("location: ../ouvinte/auth.php?error=wronglogin");
                 exit();
             }
         }
