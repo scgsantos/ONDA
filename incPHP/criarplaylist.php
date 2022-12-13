@@ -5,6 +5,8 @@ session_start();
 
 if (isset($_POST['playlistmode'])) {
     $mode = $_POST['mode'];
+    $_SESSION['selected'] = array();
+
     if (is_null($mode) !== false) {
         header("location: ../ouvinte/biblioteca/playlists.php?new");
         exit();
@@ -44,7 +46,7 @@ if (isset($_POST['playlistmode'])) {
             $author = $_SESSION['username'];
             $date = date("Y-m-d");
 
-            pg_query($conn, "INSERT INTO playlists (name, created, author) VALUES ('$name', '$date', '$author')");
+            pg_query($conn, "INSERT INTO playlists (name, created, author, genre) VALUES ('$name', '$date', '$author', 'various')");
             $playlist_id = pg_query($conn, "SELECT id FROM playlists WHERE name='$name'");
             $p_id = pg_fetch_array($playlist_id);
             $p_id = $p_id['id'];
@@ -63,7 +65,6 @@ if (isset($_POST['playlistmode'])) {
         $songsnum = $_POST['songsnum'];
         $genre = $_POST['genre'];
 
-
         if ((empty($songsnum) || empty($genre)) !== false) {
             header("location: ../ouvinte/biblioteca/playlists.php?new&mode=random&error=emptyfields");
             exit();
@@ -73,7 +74,7 @@ if (isset($_POST['playlistmode'])) {
             $author = $_SESSION['username'];
             $date = date("Y-m-d");
 
-            pg_query($conn, "INSERT INTO playlists (name, created, author) VALUES ('$name', '$date', '$author')");
+            pg_query($conn, "INSERT INTO playlists (name, created, author, genre) VALUES ('$name', '$date', '$author', '$genre')");
 
             $song_ids = pg_query($conn, "SELECT id FROM songs WHERE genre='$genre' LIMIT $songsnum OFFSET 0");
             $songs_id = pg_fetch_all($song_ids);

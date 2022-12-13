@@ -60,13 +60,8 @@ $song = pg_fetch_all($songs);
             <div class="dropdown-content" id="biblionav">
                 <a href="./all.php" class="ouvintelink">Todas as músicas</a>
                 <a href="./playlists.php" class="ouvintelink">Playlists</a>
-                <a href="./favorites.php" class="ouvintelink">Favoritas</a>
             </div>
         </div>
-
-        <a href="#">
-            <button class="ouvintesbtn">Novos Lançamentos</button>
-        </a>
 
         <div class="dropdown" id="pessoaldrop">
             <button class="ouvintesbtn" id="pessoalbtn">Área Pessoal</button>
@@ -116,7 +111,6 @@ $song = pg_fetch_all($songs);
                     <th><h3>Álbum</h3></th>
                     <th><h3>Género</h3></th>
                     <th><h3>Adicionada</h3></th>
-                    <th><img src="../../assets/favorite.svg" alt=""></th>
                 </tr>
                 <tr>
                     <?php

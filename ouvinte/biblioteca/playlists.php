@@ -54,13 +54,8 @@ if (isset($_GET["search"])) {
             <div class="dropdown-content" id="biblionav">
                 <a href="./all.php" class="ouvintelink">Todas as músicas</a>
                 <a href="./playlists.php" class="ouvintelink">Playlists</a>
-                <a href="./favorites.php" class="ouvintelink">Favoritas</a>
             </div>
         </div>
-
-        <a href="#">
-            <button class="ouvintesbtn">Novos Lançamentos</button>
-        </a>
 
         <div class="dropdown" id="pessoaldrop">
             <button class="ouvintesbtn" id="pessoalbtn">Área Pessoal</button>
@@ -85,33 +80,52 @@ if (isset($_GET["search"])) {
                 <thead>
                 <tr>
                     <th><h3>Nome</h3></th>
-                    <th><h3>Autor</h3></th>
-                    <th><h3>Géneros</h3></th>
+                    <th><h3>Género</h3></th>
                     <th><h3>Adicionada</h3></th>
                 </tr>
                 <tr>
                     <?php
                     foreach ($playlist as $p) {
+                        /*
+                        $playlist_id = $p['id'];
+                        $song_ids = pg_query($conn, "SELECT song FROM playlist_song WHERE playlist = '$playlist_id'") or die;
+                        $songs_id = pg_fetch_all($song_ids);
+
+                        $genres = array();
+                        foreach ($songs_id as $s_id) {
+                            $song_id = $s_id['song'];
+                            $song_genre = pg_query($conn, "SELECT genre FROM songs WHERE id = '$song_id'") or die;
+                            $s_genre = pg_fetch_array($song_genre);
+                            $genre = $s_genre['genre'];
+                            array_push($genres, $genre);
+                        }
+                        */
+
                         echo "<tr><td>" . $p['name'] . "</td>";
-                        echo "<td>" . $p['author'] . "</td>";
-                        echo "<td>genres</td>";
+                        echo "<td style='text-transform: capitalize'>" . $p['genre'] . "</td>";
                         echo "<td>" . $p['created'] . "</td></tr>";
+                        $p_id = $p['id'];
+                        $href = '../../incPHP/removerplaylist.php?id=' . $p_id;
+                        echo '<td><a href="'.$href.'">
+                                <button class="ouvintesbtn" id="new">-</button></a>';
                     }
                     ?>
                 </tr>
             </table>
         </div>
-    </section>
 
     <?php
     if (isset($_GET['new'])) {
-        echo '<div id="popup-content">
-                <a style="font-size: 2rem" href="../../incPHP/criarplaylist.php">×</a>
-                <h2>Nova playlist</h2>
-                <form id="playlistmode" action="../../incPHP/criarplaylist.php" method="post"></form>
-                <label>Manual<input form="playlistmode" type="radio" name="mode" value="manual" /></label>
-                <label>Aleatória<input form="playlistmode" type="radio" name="mode" value="random" /></label>
-                <button form="playlistmode" type="submit" name="playlistmode" class="ouvintesbtn">⏎</button>';
+            echo '<div id="popup-content">
+                <a class="close" style="font-size: 2rem" href="../../incPHP/criarplaylist.php">×</a>
+                <h2>Criar nova playlist</h2>';
+
+                if (!isset($_GET['mode'])) {
+                    echo '<form id="playlistmode" action="../../incPHP/criarplaylist.php" method="post"></form>
+                          <label><input form="playlistmode" type="radio" name="mode" value="manual" />Manual</label>
+                          <label><input form="playlistmode" type="radio" name="mode" value="random" />Aleatória</label>
+                          <button form="playlistmode" type="submit" name="playlistmode" class="ouvintesbtn">⏎</button>';
+        }
 
         if (isset($_GET['mode'])) {
             if ($_GET['mode'] == 'manual') {
@@ -132,7 +146,6 @@ if (isset($_GET["search"])) {
                         $song_title = $s['title'];
                         $song_id = $s['id'];
 
-
                         $artist = $s['artist'];
                         $artists = pg_query($conn, "SELECT * FROM artists WHERE username = '$artist'") or die;
                         $artist = pg_fetch_array($artists);
@@ -149,7 +162,14 @@ if (isset($_GET["search"])) {
                 foreach($_SESSION['selected'] as $s) {
                     $title = pg_query($conn, "SELECT title FROM songs WHERE id = $s") or die;
                     $t = pg_fetch_array($title);
-                    echo $t['title'] .'<br>';
+
+                    $artist = pg_query($conn, "SELECT artist FROM songs WHERE id = $s") or die;
+                    $a = pg_fetch_array($artist);
+                    $a_user = $a['artist'];
+                    $artist_name = pg_query($conn, "SELECT name FROM artists WHERE username= '$a_user'") or die;
+                    $a_name = pg_fetch_array($artist_name);
+
+                    echo $t['title'] .' ('. $a_name['name'] . ')<br>';
                 }
 
                 echo '<button form="newplaylist" type="submit" name="newplaylist" class="ouvintesbtn">Criar</button>';
@@ -160,7 +180,7 @@ if (isset($_GET["search"])) {
 
 
             } else if ($_GET['mode'] == 'random') {
-                echo '<p>(podes selecionar o género musical e o número de músicas<br>que pretendes e a tua playlist é criada aleatoriamente)</p>
+                echo '<p>(podes selecionar o género musical e o número de músicas que pretendes e a tua playlist é criada aleatoriamente)</p>
                       <form id="newplaylist" action="../../incPHP/criarplaylist.php?mode=random" method="post"></form>
                       <label>Nome<input form="newplaylist" type="text" name="pname" placeholder="inserir nome da playlist" /></label><br>
                       <label>Género<input form="newplaylist" type="text" name="genre" placeholder="inserir género da playlist" /></label><br>
@@ -175,6 +195,7 @@ if (isset($_GET["search"])) {
     }
 
     ?>
+    </section>
 
 </main>
 <script>

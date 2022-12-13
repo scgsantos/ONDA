@@ -24,13 +24,8 @@
             <div class="dropdown-content" id="biblionav">
                 <a href="biblioteca/all.php" class="ouvintelink">Todas as músicas</a>
                 <a href="biblioteca/playlists.php" class="ouvintelink">Playlists</a>
-                <a href="biblioteca/favorites.php" class="ouvintelink">Favoritas</a>
             </div>
         </div>
-
-        <a href="#">
-            <button class="ouvintesbtn">Novos Lançamentos</button>
-        </a>
 
         <div class="dropdown" id="pessoaldrop">
             <button class="ouvintesbtn" id="pessoalbtn">Área Pessoal</button>
@@ -43,6 +38,7 @@
     </nav>
 
     <section class="home">
+        <h1>BEM-VINDO AO<br><strong style="font-size: 3rem">ONDA</strong> PARA OUVINTES!</h1>
     </section>
 </main>
 <script>

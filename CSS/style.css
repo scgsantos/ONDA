@@ -19,6 +19,7 @@ html, body {
 
 a {
     text-decoration: none;
+    width: border-box;
 }
 
 .container {
@@ -173,11 +174,11 @@ fieldset {
     align-items: baseline;
     flex-wrap: wrap;
     height: 90%;
-    margin-top: 7%;
+    margin-top: 5%;
 }
 
 #auth .form {
-    margin: 5rem 2rem;
+    margin: 3rem 2rem 0;
 }
 
 #auth .logo {
@@ -188,6 +189,13 @@ fieldset {
 .container:not(#auth), .container:not(#landing) {
     align-items: stretch;
     text-align: center;
+}
+
+#home h1 {
+    font-size: 3rem;
+    font-weight: 400;
+    border: none;
+    padding: 15rem 0;
 }
 
 .sidenav {
@@ -223,6 +231,10 @@ fieldset {
 #pessoaldrop:hover #pessoalnav {
     display: block;
     margin: 0;
+}
+
+.dropdown {
+    margin-top: 1rem;
 }
 
 .dropdown-content a {
@@ -299,7 +311,7 @@ fieldset {
     text-align: left;
 }
 
-#all input[type="radio"] {
+input[type="radio"] {
     -webkit-appearance: none;
     appearance: none;
     color: var(--black);
@@ -307,7 +319,7 @@ fieldset {
     margin-right: 0.3rem;
 }
 
-#all input[type="radio"]:checked {
+input[type="radio"]:checked {
     background: var(--black);
 }
 
@@ -392,19 +404,35 @@ fieldset {
     font-weight: 500;
 }
 
+#playlists {
+    text-align: center;
+}
+
 #popup-content {
     background-color: var(--beige);
     color: var(--black);
     border: 2px solid var(--black);
     text-align: left;
-    padding: 3rem;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    padding: 1.5rem 3rem;
+    margin: -20% auto 0;
+    width: 40%;
+    top: 0;
+    display: block;
+    z-index: 3;
+    position: relative;
 }
 
 #popup-content button {
     display: inline-block;
     margin: 0;
+}
+
+#popup-content .close {
+    margin-right: -2rem;
+    float: right;
+    line-height: 0.5rem;
+}
+
+.table {
+    width: 100%;
 }
