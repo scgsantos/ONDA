@@ -5,7 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>ONDA | Ouvinte</title>
+    <link rel="icon" href="../assets/ONDAicon.svg">
     <link rel="stylesheet" href="../CSS/style.css">
+    <link href="https://api.fontshare.com/v2/css?f[]=nippo@200,300,500,700,400&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=boxing@400&display=swap" rel="stylesheet">
 </head>
 <body class="ouvinte">
 <main class="container" id="home">

@@ -29,7 +29,7 @@ a {
 
 section {
     flex-grow: 2;
-    padding: 1.5rem;
+    padding: 2rem 2.5rem;
 }
 
 strong {
@@ -40,13 +40,17 @@ h1 {
     font-size: 2rem;
     font-weight: 500;
     text-align: center;
-    margin-bottom: 3rem;
+    margin: 0 0 1.5rem;
+    border: 2px solid var(--black);
+    display: inline-block;
+    padding: 0.5rem 1rem;
 }
 
 h2 {
     font-size: 1.4rem;
     font-weight: 500;
     text-align: center;
+    margin: 0 0 1.5rem;
 }
 
 h3 {
@@ -279,11 +283,61 @@ fieldset {
     text-align: left;
 }
 
+#all .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+}
+
+#all input[name="search"] {
+    width: 15rem;
+    text-align: left;
+}
+
+#all input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
+    color: var(--black);
+    padding: 0.3rem;
+    margin-right: 0.3rem;
+}
+
+#all input[type="radio"]:checked {
+    background: var(--black);
+}
+
+
+#all .sortlist {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+
+#all .sortlist label {
+    font-weight: 300;
+    padding: 0 0.1rem;
+}
+
+#all fieldset {
+    padding: 0;
+    margin: 0.1rem 0;
+}
+
+#all .controls button {
+    display: inline-block;
+    margin: 0;
+}
+
+#all .table label {
+    margin: 0;
+}
+
 .biblioteca table {
     text-align: left;
     margin: 0 auto;
     display: table;
-    width: 100%;
+    width: auto;
     border: 2px solid var(--black);
     box-sizing: border-box;
     border-collapse: collapse;
@@ -327,4 +381,10 @@ fieldset {
     padding: 0.4rem 0.7rem;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+#playlists #newplaylist {
+    display: block;
+    margin: 0 0 1rem;
+    font-weight: 500;
 }

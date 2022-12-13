@@ -41,7 +41,10 @@ $song = pg_fetch_all($songs);
 <head>
     <meta charset="UTF-8">
     <title>ONDA | Todas as músicas</title>
+    <link rel="icon" href="../../assets/ONDAicon.svg">
     <link rel="stylesheet" href="../../CSS/style.css">
+    <link href="https://api.fontshare.com/v2/css?f[]=nippo@200,300,500,700,400&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=boxing@400&display=swap" rel="stylesheet">
 </head>
 <body class="ouvinte">
 <main class="container" id="biblioteca">
@@ -79,27 +82,31 @@ $song = pg_fetch_all($songs);
         <h1>Biblioteca</h1>
         <h2>Todas as músicas</h2>
 
-        <form method="post" action="../../incPHP/pesquisarlista.php">
-            <input name="search" type="text" placeholder="Pesquisar por título ou artista">
-            <button type="submit" name="searchlist" class="ouvintesbtn">Pesquisar</button>
-        </form>
-        <?php
-        echo '<p class="error">' . $error . '</p>';
-        ?>
+        <div class="controls">
+            <form class="searchlist" method="post" action="../../incPHP/pesquisarlista.php">
+                <input name="search" type="text" placeholder="Pesquisar por título ou artista">
+                <button type="submit" name="searchlist" class="ouvintesbtn">⏎</button>
+                <?php
+                echo '<p style="text-align: left" class="error">' . $error . '</p>';
+                ?>
+            </form>
 
-        <form method="post" action="../../incPHP/ordenarlista.php">
-            <p>Ordenar por</p>
-            <fieldset>
-                <label><input type="radio" name="sort" value="title">título</label>
-                <label><input type="radio" name="sort" value="genre">género</label>
-                <label><input type="radio" name="sort" value="added">data de adição</label>
-            </fieldset>
-            <fieldset>
-                <label><input type="radio" name="order" value="asc">ascendente</label>
-                <label><input type="radio" name="order" value="desc">descendente</label>
-            </fieldset>
-            <button type="submit" name="sortlist" class="ouvintesbtn">Ordenar</button>
-        </form>
+            <form class="sortlist" method="post" action="../../incPHP/ordenarlista.php">
+                <b>Ordenar por:</b>
+                <div>
+                    <fieldset>
+                        <label><input type="radio" name="sort" value="title">título</label>
+                        <label><input type="radio" name="sort" value="genre">género</label>
+                        <label><input type="radio" name="sort" value="added">data de adição</label>
+                    </fieldset>
+                    <fieldset>
+                        <label><input type="radio" name="order" value="asc">ascendente</label>
+                        <label><input type="radio" name="order" value="desc">descendente</label>
+                    </fieldset>
+                </div>
+                <button type="submit" name="sortlist" class="ouvintesbtn">⏎</button>
+            </form>
+        </div>
         <div class="table">
             <table>
                 <thead>
