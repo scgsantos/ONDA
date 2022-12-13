@@ -4,6 +4,30 @@ $conn = pg_connect($str) or die ("Erro na ligação");
 
 $playlists = pg_query($conn, "SELECT * FROM playlists") or die;
 $playlist = pg_fetch_all($playlists);
+
+$error = '';
+
+// pesquisar lista
+if (isset($_GET["search"])) {
+    $search = $_GET['search'];
+
+    // por título
+    $condition1 = "title ILIKE '%$search%'";
+
+    // por artista
+    $artists = pg_query($conn, "SELECT * FROM artists WHERE name ILIKE '%$search%'") or die;
+    $artist = pg_fetch_all($artists);
+    $a_user = array();
+    foreach ($artist as $a) array_push($a_user, $a['username']);
+    $arr = "('" . implode("', '", $a_user) . "')";
+    $condition2 = "artist IN $arr";
+
+    $songs = pg_query($conn, "SELECT * FROM songs WHERE $condition1 OR $condition2") or die;
+
+    if (pg_num_rows($songs) == 0) $error = 'Não foram encontrados resultados';
+    $song = pg_fetch_all($songs);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +76,9 @@ $playlist = pg_fetch_all($playlists);
         <h1>Biblioteca</h1>
         <h2>Playlists</h2>
 
-        <a href="../../incPHP/criarplaylist.php"><button class="ouvintesbtn" id="newplaylist">﹢ Criar nova playlist</button></a>
+        <a href="../../incPHP/criarplaylist.php?new">
+            <button class="ouvintesbtn" id="new">﹢ Criar nova playlist</button>
+        </a>
 
         <div class="table">
             <table>
@@ -80,21 +106,70 @@ $playlist = pg_fetch_all($playlists);
     <?php
     if (isset($_GET['new'])) {
         echo '<div id="popup-content">
-                <a href="playlists.php">×</a>
+                <a style="font-size: 2rem" href="../../incPHP/criarplaylist.php">×</a>
                 <h2>Nova playlist</h2>
-                <form action="../../incPHP/criarplaylist.php" method="post">
-                    <label>Manual<input type="radio" name="mode" value="manual"></label>
-                    <label>Aleatória<input type="radio" name="mode" value="random"></label>
-                    <button type="submit" name="playlistmode" class="ouvintesbtn">⏎</button>
-                </form>';
-        if(isset($_GET['mode'])) {
+                <form id="playlistmode" action="../../incPHP/criarplaylist.php" method="post"></form>
+                <label>Manual<input form="playlistmode" type="radio" name="mode" value="manual" /></label>
+                <label>Aleatória<input form="playlistmode" type="radio" name="mode" value="random" /></label>
+                <button form="playlistmode" type="submit" name="playlistmode" class="ouvintesbtn">⏎</button>';
+
+        if (isset($_GET['mode'])) {
             if ($_GET['mode'] == 'manual') {
-                echo '<form action="../../incPHP/criarplaylist.php?manual" method="post">
-                          <label>Nome<input type="text" name="pname" placeholder="inserir nome da playlist"></label><br>
-                          <label>Música<input type="text" name="songs" placeholder="pesquisar por título ou artista" list="songs"></label>
-                          <button type="submit" name="newplaylist" class="ouvintesbtn">Criar</button>
-                      </form>
-                    </div>';
+                echo '<p>(podes selecionar as músicas a adicionar à tua playlist)</p>
+                      <form id="newplaylist" action="../../incPHP/criarplaylist.php?mode=manual" method="post"></form>
+                      <form id="searchlist" action="../../incPHP/pesquisarlista.php?op=newplst" method="post"></form>
+                      
+                      <label>Nome<input form="newplaylist" type="text" name="pname" placeholder="inserir nome da playlist" /></label><br>
+                      <p>Músicas</p>    
+                      <label><input form="searchlist" name="search" type="text" placeholder="Pesquisar por título ou artista" /></label>
+                      <button form="searchlist" type="submit" name="searchlist" class="ouvintesbtn">⏎</button>
+                      <p style="text-align: left" class="error">' . $error . '</p>';
+
+                if (isset($_GET['search'])) {
+                    $action = '../../incPHP/criarplaylist.php?search=' . $search;
+                    echo '<form id="selectsongs" action="' . $action . '" method="post"></form>';
+                    foreach ($song as $s) {
+                        $song_title = $s['title'];
+                        $song_id = $s['id'];
+
+
+                        $artist = $s['artist'];
+                        $artists = pg_query($conn, "SELECT * FROM artists WHERE username = '$artist'") or die;
+                        $artist = pg_fetch_array($artists);
+
+                        echo '<label>' . $song_title . ' (' . $artist['name'] . ')<input form="selectsongs" type="radio" name="songs" value="' . $song_id . '" /></label><br>';
+                    }
+                    echo '<button form="selectsongs" type="submit" name="selectsongs" class="ouvintesbtn">Adicionar</button><br>';
+                }
+                if (isset($_GET['song'])) {
+                    $selected_song = $_GET['song'];
+                    array_push($_SESSION['selected'], $selected_song);
+                }
+
+                foreach($_SESSION['selected'] as $s) {
+                    $title = pg_query($conn, "SELECT title FROM songs WHERE id = $s") or die;
+                    $t = pg_fetch_array($title);
+                    echo $t['title'] .'<br>';
+                }
+
+                echo '<button form="newplaylist" type="submit" name="newplaylist" class="ouvintesbtn">Criar</button>';
+                if (isset($_GET["error"])) {
+                    if ($_GET["error"] == "emptyfields") echo "<p class='error'>Preencha todos os campos</p>";
+                }
+
+
+
+            } else if ($_GET['mode'] == 'random') {
+                echo '<p>(podes selecionar o género musical e o número de músicas<br>que pretendes e a tua playlist é criada aleatoriamente)</p>
+                      <form id="newplaylist" action="../../incPHP/criarplaylist.php?mode=random" method="post"></form>
+                      <label>Nome<input form="newplaylist" type="text" name="pname" placeholder="inserir nome da playlist" /></label><br>
+                      <label>Género<input form="newplaylist" type="text" name="genre" placeholder="inserir género da playlist" /></label><br>
+                      <label>Número de músicas<input form="newplaylist" type="number" name="songsnum" placeholder="" /></label><br>
+                      <button form="newplaylist" type="submit" name="newplaylist" class="ouvintesbtn">Criar</button>';
+                if (isset($_GET["error"])) {
+                    if ($_GET["error"] == "emptyfields") echo "<p class='error'>Preencha todos os campos</p>";
+                }
+
             }
         }
     }

@@ -83,7 +83,7 @@ $song = pg_fetch_all($songs);
         <h2>Todas as músicas</h2>
 
         <div class="controls">
-            <form class="searchlist" method="post" action="../../incPHP/pesquisarlista.php">
+            <form class="searchlist" method="post" action="../../incPHP/pesquisarlista.php?op=all">
                 <input name="search" type="text" placeholder="Pesquisar por título ou artista">
                 <button type="submit" name="searchlist" class="ouvintesbtn">⏎</button>
                 <?php

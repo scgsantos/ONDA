@@ -311,7 +311,6 @@ fieldset {
     background: var(--black);
 }
 
-
 #all .sortlist {
     display: flex;
     align-items: center;
@@ -387,7 +386,7 @@ fieldset {
     text-overflow: ellipsis;
 }
 
-#playlists #newplaylist {
+#playlists #new {
     display: block;
     margin: 0 0 1rem;
     font-weight: 500;
@@ -400,6 +399,12 @@ fieldset {
     text-align: left;
     padding: 3rem;
     position: absolute;
-    top: 20%;
+    top: 40%;
     left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#popup-content button {
+    display: inline-block;
+    margin: 0;
 }
