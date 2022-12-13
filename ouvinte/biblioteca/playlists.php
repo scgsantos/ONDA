@@ -82,6 +82,7 @@ if (isset($_GET["search"])) {
                     <th><h3>Nome</h3></th>
                     <th><h3>Género</h3></th>
                     <th><h3>Adicionada</h3></th>
+                    <th><h3></h3></th>
                 </tr>
                 <tr>
                     <?php
@@ -103,11 +104,11 @@ if (isset($_GET["search"])) {
 
                         echo "<tr><td>" . $p['name'] . "</td>";
                         echo "<td style='text-transform: capitalize'>" . $p['genre'] . "</td>";
-                        echo "<td>" . $p['created'] . "</td></tr>";
+                        echo "<td>" . $p['created'] . "</td>";
                         $p_id = $p['id'];
                         $href = '../../incPHP/removerplaylist.php?id=' . $p_id;
                         echo '<td><a href="'.$href.'">
-                                <button class="ouvintesbtn" id="new">-</button></a>';
+                                <button style="margin: 0; font-weight: 400" class="ouvintesbtn" id="new">REMOVER</button></a></td></tr>';
                     }
                     ?>
                 </tr>
