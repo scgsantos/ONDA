@@ -159,6 +159,10 @@ fieldset {
     margin-bottom: -2px;
 }
 
+.ouvinte a {
+    color: var(--black);
+}
+
 .ouvinte input::placeholder {
     color: var(--black);
     font-weight: 300;
@@ -387,4 +391,15 @@ fieldset {
     display: block;
     margin: 0 0 1rem;
     font-weight: 500;
+}
+
+#popup-content {
+    background-color: var(--beige);
+    color: var(--black);
+    border: 2px solid var(--black);
+    text-align: left;
+    padding: 3rem;
+    position: absolute;
+    top: 20%;
+    left: 50%;
 }

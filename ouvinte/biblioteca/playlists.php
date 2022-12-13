@@ -2,8 +2,8 @@
 $str = "dbname=ONDA user=postgres password=postgres host=localhost port=5432";
 $conn = pg_connect($str) or die ("Erro na ligação");
 
-$songs = pg_query($conn, "SELECT * FROM songs") or die;
-$song = pg_fetch_all($songs);
+$playlists = pg_query($conn, "SELECT * FROM playlists") or die;
+$playlist = pg_fetch_all($playlists);
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +51,8 @@ $song = pg_fetch_all($songs);
     <section class="biblioteca" id="playlists">
         <h1>Biblioteca</h1>
         <h2>Playlists</h2>
-        <button class="ouvintesbtn" id="newplaylist"">﹢ Criar nova playlist</button>
+
+        <a href="../../incPHP/criarplaylist.php"><button class="ouvintesbtn" id="newplaylist">﹢ Criar nova playlist</button></a>
 
         <div class="table">
             <table>
@@ -64,25 +65,42 @@ $song = pg_fetch_all($songs);
                 </tr>
                 <tr>
                     <?php
-                    foreach ($song as $s) {
-                        $artist = $s['artist'];
-                        $artists = pg_query($conn, "SELECT * FROM artists WHERE username = '$artist'") or die;
-                        $artist = pg_fetch_array($artists);
-
-                        $album = $s['album'];
-                        $albums = pg_query($conn, "SELECT * FROM albums WHERE id = $album") or die;
-                        $album = pg_fetch_array($albums);
-
-                        echo "<tr><td>" . $s['title'] . "</td>";
-                        echo "<td>" . $s['artist'] . "</td>";
-                        echo "<td>" . $s['genre'] . "</td>";
-                        echo "<td>" . $s['added'] . "</td></tr>";
+                    foreach ($playlist as $p) {
+                        echo "<tr><td>" . $p['name'] . "</td>";
+                        echo "<td>" . $p['author'] . "</td>";
+                        echo "<td>genres</td>";
+                        echo "<td>" . $p['created'] . "</td></tr>";
                     }
                     ?>
                 </tr>
             </table>
         </div>
     </section>
+
+    <?php
+    if (isset($_GET['new'])) {
+        echo '<div id="popup-content">
+                <a href="playlists.php">×</a>
+                <h2>Nova playlist</h2>
+                <form action="../../incPHP/criarplaylist.php" method="post">
+                    <label>Manual<input type="radio" name="mode" value="manual"></label>
+                    <label>Aleatória<input type="radio" name="mode" value="random"></label>
+                    <button type="submit" name="playlistmode" class="ouvintesbtn">⏎</button>
+                </form>';
+        if(isset($_GET['mode'])) {
+            if ($_GET['mode'] == 'manual') {
+                echo '<form action="../../incPHP/criarplaylist.php?manual" method="post">
+                          <label>Nome<input type="text" name="pname" placeholder="inserir nome da playlist"></label><br>
+                          <label>Música<input type="text" name="songs" placeholder="pesquisar por título ou artista" list="songs"></label>
+                          <button type="submit" name="newplaylist" class="ouvintesbtn">Criar</button>
+                      </form>
+                    </div>';
+            }
+        }
+    }
+
+    ?>
+
 </main>
 <script>
     document.body.style.background = "var(--beige)";
