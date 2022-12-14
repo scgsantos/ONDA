@@ -29,7 +29,6 @@ if (isset($_GET["search"])) {
     $condition2 = "artist IN $arr";
 
     $songs = pg_query($conn, "SELECT * FROM songs WHERE $condition1 OR $condition2") or die;
-
     if (pg_num_rows($songs) == 0) $error = 'Não foram encontrados resultados';
 }
 
@@ -104,7 +103,6 @@ $song = pg_fetch_all($songs);
         </div>
         <div class="table">
             <table>
-                <thead>
                 <tr>
                     <th><h3>Título</h3></th>
                     <th><h3>Artista</h3></th>

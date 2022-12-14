@@ -77,7 +77,6 @@ if (isset($_GET["search"])) {
 
         <div class="table">
             <table>
-                <thead>
                 <tr>
                     <th><h3>Nome</h3></th>
                     <th><h3>Género</h3></th>

@@ -13,10 +13,10 @@
         <a href="index.php"><img src="../assets/logoONDA_fundoescuro.svg" width="150" height="" alt="logo"></a>
         <?php
         $userlogged = $_SESSION['username'];
-        echo "<h3><b>$userlogged</b>'s ONDA</h3>";
+        echo "<h3 style='text-transform: uppercase'>$userlogged's ONDA</h3>";
         ?>
 
-        <a href="#">
+        <a href="biblioteca.php">
             <button class="artistasbtn">Minha Biblioteca</button>
         </a>
 
@@ -31,6 +31,7 @@
     </nav>
 
     <section class="home">
+        <h1>BEM-VINDO AO<br><strong style="font-size: 3rem">ONDA</strong> PARA ARTISTAS!</h1>
     </section>
 </main>
 <script>
