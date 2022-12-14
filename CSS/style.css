@@ -538,4 +538,5 @@ select:focus {
     margin: 0;
     padding: 0 0.2rem;
     font-size: 0.8rem;
+    display: inline-block;
 }

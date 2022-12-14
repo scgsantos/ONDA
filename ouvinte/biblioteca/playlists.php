@@ -2,7 +2,9 @@
 $str = "dbname=ONDA user=postgres password=postgres host=localhost port=5432";
 $conn = pg_connect($str) or die ("Erro na ligação");
 
-$playlists = pg_query($conn, "SELECT * FROM playlists") or die;
+$userlogged = $_SESSION['username'];
+
+$playlists = pg_query($conn, "SELECT * FROM playlists WHERE author = '$userlogged'") or die;
 $playlist = pg_fetch_all($playlists);
 
 $error = '';
@@ -60,7 +62,6 @@ if (isset($_GET["search"])) {
         <div class="dropdown" id="pessoaldrop">
             <button class="ouvintesbtn" id="pessoalbtn">Área Pessoal</button>
             <div class="dropdown-content" id="pessoalnav">
-                <a href="#" class="ouvintelink">Estatísticas</a>
                 <a href="#" class="ouvintelink">Definições</a>
                 <a href="../../incPHP/logout.php" class="ouvintelink">Terminar sessão</a>
             </div>
@@ -86,28 +87,13 @@ if (isset($_GET["search"])) {
                 <tr>
                     <?php
                     foreach ($playlist as $p) {
-                        /*
-                        $playlist_id = $p['id'];
-                        $song_ids = pg_query($conn, "SELECT song FROM playlist_song WHERE playlist = '$playlist_id'") or die;
-                        $songs_id = pg_fetch_all($song_ids);
-
-                        $genres = array();
-                        foreach ($songs_id as $s_id) {
-                            $song_id = $s_id['song'];
-                            $song_genre = pg_query($conn, "SELECT genre FROM songs WHERE id = '$song_id'") or die;
-                            $s_genre = pg_fetch_array($song_genre);
-                            $genre = $s_genre['genre'];
-                            array_push($genres, $genre);
-                        }
-                        */
-
                         echo "<tr><td>" . $p['name'] . "</td>";
                         echo "<td style='text-transform: capitalize'>" . $p['genre'] . "</td>";
                         echo "<td>" . $p['created'] . "</td>";
                         $p_id = $p['id'];
                         $href = '../../incPHP/removerplaylist.php?id=' . $p_id;
                         echo '<td><a href="'.$href.'">
-                                <button style="margin: 0; font-weight: 400" class="ouvintesbtn" id="new">REMOVER</button></a></td></tr>';
+                                <button class="ouvintesbtn" id="remove">REMOVER</button></a></td></tr>';
                     }
                     ?>
                 </tr>
@@ -117,7 +103,7 @@ if (isset($_GET["search"])) {
     <?php
     if (isset($_GET['new'])) {
             echo '<div id="popup-content">
-                <a class="close" style="font-size: 2rem" href="../../incPHP/criarplaylist.php">×</a>
+                <a class="close" style="font-size: 2rem" href="./playlists.php">×</a>
                 <h2>Criar nova playlist</h2>';
 
                 if (!isset($_GET['mode'])) {

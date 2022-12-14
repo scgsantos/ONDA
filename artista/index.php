@@ -23,7 +23,6 @@
         <div class="dropdown" id="pessoaldrop">
             <button class="artistasbtn" id="pessoalbtn">Área Pessoal</button>
             <div class="dropdown-content" id="pessoalnav">
-                <a href="#" class="artistalink">Estatísticas</a>
                 <a href="#" class="artistalink">Definições</a>
                 <a href="../incPHP/logout.php" class="artistalink">Terminar sessão</a>
             </div>

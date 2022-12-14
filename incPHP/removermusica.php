@@ -6,7 +6,7 @@ session_start();
 if (isset($_GET['id'])) {
     $song_id = $_GET['id'];
 
-    $album_id = pg_query($conn, "SELECT album FROM songs WHERE id='$song_id'");
+    $album_id = pg_query($conn, "SELECT album FROM songs WHERE id = '$song_id'");
     $a_id = pg_fetch_array($album_id);
     $a = $a_id['album'];
 

@@ -30,7 +30,6 @@
         <div class="dropdown" id="pessoaldrop">
             <button class="ouvintesbtn" id="pessoalbtn">Área Pessoal</button>
             <div class="dropdown-content" id="pessoalnav">
-                <a href="#" class="ouvintelink">Estatísticas</a>
                 <a href="#" class="ouvintelink">Definições</a>
                 <a href="../incPHP/logout.php" class="ouvintelink">Terminar sessão</a>
             </div>

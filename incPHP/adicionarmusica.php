@@ -9,10 +9,6 @@ if (isset($_POST['newsong'])) {
     $album = $_POST['album'];
 
     if ((is_null($genre) || empty($title) || empty($album)) !== false) {
-        echo $genre;
-        echo $title;
-        echo $album;
-
         header("location: ../artista/biblioteca.php?new&error=emptyfields");
         exit();
     }

@@ -2,9 +2,9 @@
 $str = "dbname=ONDA user=postgres password=postgres host=localhost port=5432";
 $conn = pg_connect($str) or die ("Erro na ligação");
 
-$my_username = $_SESSION['username'];
-$songs = pg_query($conn, "SELECT * FROM songs WHERE artist = '$my_username'") or die;
-$error = '';
+$userlogged = $_SESSION['username'];
+
+$songs = pg_query($conn, "SELECT * FROM songs WHERE artist = '$userlogged'") or die;
 $song = pg_fetch_all($songs);
 ?>
 
@@ -12,7 +12,7 @@ $song = pg_fetch_all($songs);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ONDA | Todas as músicas</title>
+    <title>ONDA | Minha biblioteca</title>
     <link rel="icon" href="../assets/ONDAicon.svg">
     <link rel="stylesheet" href="../CSS/style.css">
     <link href="https://api.fontshare.com/v2/css?f[]=nippo@200,300,500,700,400&display=swap" rel="stylesheet">
@@ -23,18 +23,16 @@ $song = pg_fetch_all($songs);
     <nav class="sidenav">
         <a href="index.php"><img src="../assets/logoONDA_fundoescuro.svg" width="150" height="" alt="logo"></a>
         <?php
-        $userlogged = $_SESSION['username'];
         echo "<h3 style='text-transform: uppercase'>$userlogged's ONDA</h3>";
         ?>
 
         <a href="biblioteca.php">
-            <button class="artistasbtn">Minha biblioteca</button>
+            <button class="artistasbtn">Minha Biblioteca</button>
         </a>
 
         <div class="dropdown" id="pessoaldrop">
             <button class="artistasbtn" id="pessoalbtn">Área Pessoal</button>
             <div class="dropdown-content" id="pessoalnav">
-                <a href="#" class="artistalink">Estatísticas</a>
                 <a href="#" class="artistalink">Definições</a>
                 <a href="../incPHP/logout.php" class="artistalink">Terminar sessão</a>
             </div>
@@ -72,9 +70,12 @@ $song = pg_fetch_all($songs);
                         echo "<td>" . $s['genre'] . "</td>";
                         echo "<td>" . $s['added'] . "</td>";
                         $s_id = $s['id'];
-                        $href = '../incPHP/removermusica.php?id=' . $s_id;
-                        echo '<td><a href="'.$href.'">
-                                <button class="artistasbtn" id="remove">remover</button></a></td></tr>';
+                        $remove_link = '../incPHP/removermusica.php?id=' . $s_id;
+                        $edit_link = '../incPHP/editarmusica.php?id=' . $s_id;
+                        echo '<td>
+                                <a href="'.$remove_link.'"><button class="artistasbtn" id="remove">remover</button></a>
+                                <a href="'.$edit_link.'"><button class="artistasbtn" id="remove">editar</button></a>
+                              </td></tr>';
                     }
                     ?>
                 <tbody>
@@ -85,7 +86,7 @@ $song = pg_fetch_all($songs);
 
         if (isset($_GET['new'])) {
             echo '<div id="popup-content">
-            <a class="close" style="font-size: 2rem" href="../incPHP/adicionarmusica.php">×</a>
+            <a class="close" style="font-size: 2rem" href="./biblioteca.php">×</a>
             <h2>Adicionar nova música</h2>
         
             <form id="newsong" action="../incPHP/adicionarmusica.php" method="post"></form>
@@ -106,8 +107,24 @@ $song = pg_fetch_all($songs);
               <option value="newage">New Age</option>
               <option value="pop">Pop</option>
             </select></label>
-            <button form="newsong" type="submit" name="newsong" class="artistasbtn">⏎</button>
-            <p style="text-align: left" class="error">' . $error . '</p>';
+            <button form="newsong" type="submit" name="newsong" class="artistasbtn">Adicionar</button>';
+
+            if (isset($_GET["error"])) {
+                if ($_GET["error"] == "emptyfields") echo "<p class='error'>Preencha todos os campos</p>";
+            }
+        }
+
+        else if (isset($_GET['edit'])) {
+            $song_id = $_GET['id'];
+            $action = '../incPHP/editarmusica.php?id=' . $song_id;
+            echo '<div id="popup-content">
+            <a class="close" style="font-size: 2rem" href="./biblioteca.php">×</a>
+            <h2>Editar música</h2>
+        
+            <form id="editsong" action="'.$action.'" method="post"></form>
+
+            <label>Título<input form="editsong" type="text" name="title" placeholder="inserir título da música" /></label><br>
+            <button form="editsong" type="submit" name="editsong" class="artistasbtn">Alterar</button>';
 
             if (isset($_GET["error"])) {
                 if ($_GET["error"] == "emptyfields") echo "<p class='error'>Preencha todos os campos</p>";
