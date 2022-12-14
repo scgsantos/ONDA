@@ -1,6 +1,10 @@
-<?php session_start();
+<?php
+session_start();
 $str = "dbname=ONDA user=postgres password=postgres host=localhost port=5432";
 $conn = pg_connect($str) or die ("Erro na ligação");
+
+if(!isset($_SESSION['username'])) header("location: ../../landing.php");
+else $userlogged = $_SESSION['username'];
 
 $songs = pg_query($conn, "SELECT * FROM songs") or die;
 $error = '';
@@ -100,7 +104,7 @@ $song = pg_fetch_all($songs);
                 <button type="submit" name="sortlist" class="ouvintesbtn">⏎</button>
             </form>
         </div>
-        <div class="table">
+
             <table>
                 <tr>
                     <th><h3>Título</h3></th>
@@ -129,7 +133,6 @@ $song = pg_fetch_all($songs);
                     ?>
                 </tr>
             </table>
-        </div>
     </section>
 </main>
 <script>

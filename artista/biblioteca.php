@@ -1,8 +1,10 @@
-<?php session_start();
+<?php
+session_start();
 $str = "dbname=ONDA user=postgres password=postgres host=localhost port=5432";
 $conn = pg_connect($str) or die ("Erro na ligação");
 
-$userlogged = $_SESSION['username'];
+if(!isset($_SESSION['username'])) header("location: ../landing.php");
+else $userlogged = $_SESSION['username'];
 
 $songs = pg_query($conn, "SELECT * FROM songs WHERE artist = '$userlogged'") or die;
 $song = pg_fetch_all($songs);
@@ -12,7 +14,7 @@ $song = pg_fetch_all($songs);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ONDA | Minha biblioteca</title>
+    <title>ONDA | Minha Biblioteca</title>
     <link rel="icon" href="../assets/ONDAicon.svg">
     <link rel="stylesheet" href="../CSS/style.css">
     <link href="https://api.fontshare.com/v2/css?f[]=nippo@200,300,500,700,400&display=swap" rel="stylesheet">
@@ -39,8 +41,8 @@ $song = pg_fetch_all($songs);
         </div>
     </nav>
 
-    <section class="biblioteca" id="all">
-        <h1>Biblioteca</h1>
+    <section class="biblioteca">
+        <h1>Minha Biblioteca</h1>
         <h2>Todas as músicas</h2>
 
         <a href="../incPHP/adicionarmusica.php?new">
@@ -70,11 +72,11 @@ $song = pg_fetch_all($songs);
                         echo "<td>" . $s['genre'] . "</td>";
                         echo "<td>" . $s['added'] . "</td>";
                         $s_id = $s['id'];
-                        $remove_link = '../incPHP/removermusica.php?id=' . $s_id;
+                        $remove_link = '../incPHP/removermusica.php?remove&id=' . $s_id;
                         $edit_link = '../incPHP/editarmusica.php?id=' . $s_id;
                         echo '<td>
-                                <a href="'.$remove_link.'"><button class="artistasbtn" id="remove">remover</button></a>
                                 <a href="'.$edit_link.'"><button class="artistasbtn" id="remove">editar</button></a>
+                                <a href="'.$remove_link.'"><button class="artistasbtn" id="remove">remover</button></a>
                               </td></tr>';
                     }
                     ?>
@@ -131,6 +133,16 @@ $song = pg_fetch_all($songs);
             }
 
 
+        }
+
+        else if (isset($_GET['remove'])) {
+            $s_id = $_GET['id'];
+            $href = '../incPHP/removermusica.php?id=' . $s_id . '&yes';
+            echo '<div id="popup-content">
+                <h3>Tens a certeza que pretendes remover esta música?</h3>
+                
+                <a href="'.$href.'"><button class="artistasbtn">Sim</button></a>
+                <a href="./biblioteca.php"><button class="artistasbtn">Cancelar</button></a>';
         }
 
             ?>

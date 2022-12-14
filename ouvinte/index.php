@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php
+session_start();
+
+if(!isset($_SESSION['username'])) header("location: ../landing.php");
+else $userlogged = $_SESSION['username'];
+?>
 
 <!DOCTYPE html>
 <html lang="en">

@@ -2,7 +2,8 @@
 $str = "dbname=ONDA user=postgres password=postgres host=localhost port=5432";
 $conn = pg_connect($str) or die ("Erro na ligação");
 
-$userlogged = $_SESSION['username'];
+if(!isset($_SESSION['username'])) header("location: ../../landing.php");
+else $userlogged = $_SESSION['username'];
 
 $playlists = pg_query($conn, "SELECT * FROM playlists WHERE author = '$userlogged'") or die;
 $playlist = pg_fetch_all($playlists);
@@ -91,7 +92,7 @@ if (isset($_GET["search"])) {
                         echo "<td style='text-transform: capitalize'>" . $p['genre'] . "</td>";
                         echo "<td>" . $p['created'] . "</td>";
                         $p_id = $p['id'];
-                        $href = '../../incPHP/removerplaylist.php?id=' . $p_id;
+                        $href = '../../incPHP/removerplaylist.php?remove&id=' . $p_id;
                         echo '<td><a href="'.$href.'">
                                 <button class="ouvintesbtn" id="remove">REMOVER</button></a></td></tr>';
                     }
@@ -163,8 +164,6 @@ if (isset($_GET["search"])) {
                     if ($_GET["error"] == "emptyfields") echo "<p class='error'>Preencha todos os campos</p>";
                 }
 
-
-
             } else if ($_GET['mode'] == 'random') {
                 echo '<p>(podes selecionar o género musical e o número de músicas que pretendes e a tua playlist é criada aleatoriamente)</p>
                       <form id="newplaylist" action="../../incPHP/criarplaylist.php?mode=random" method="post"></form>
@@ -175,9 +174,18 @@ if (isset($_GET["search"])) {
                 if (isset($_GET["error"])) {
                     if ($_GET["error"] == "emptyfields") echo "<p class='error'>Preencha todos os campos</p>";
                 }
-
             }
         }
+    }
+
+    else if (isset($_GET['remove'])) {
+        $p_id = $_GET['id'];
+        $href = '../../incPHP/removerplaylist.php?id=' . $p_id . '&yes';
+        echo '<div id="popup-content">
+                <h3>Tens a certeza que pretendes remover esta playlist?</h3>
+                
+                <a href="'.$href.'"><button class="ouvintesbtn">Sim</button></a>
+                <a href="./playlists.php"><button class="ouvintesbtn">Cancelar</button></a>';
     }
 
     ?>
