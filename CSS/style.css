@@ -367,9 +367,23 @@ fieldset {
     appearance: none;
     color: var(--beige);
     border: 2px solid var(--beige);
-    background: url("../assets/down_arrow.svg") no-repeat right transparent;
+    background: url("../assets/downarrow_fundoescuro.svg") no-repeat right transparent;
     background-position-x: 92%;
-    padding: 0.3rem 1.7rem 0.3rem 0.5rem;
+    padding: 0.4rem 1.7rem 0.4rem 0.7rem;
+    margin-left: 1rem;
+    text-align: left;
+}
+
+.ouvinte select {
+    -webkit-appearance: none;
+    appearance: none;
+    color: var(--black);
+    border: 2px solid var(--black);
+    background: url("../assets/downarrow_fundoclaro.svg") no-repeat right transparent;
+    background-position-x: 92%;
+    padding: 0.4rem 1.7rem 0.4rem 0.7rem;
+    margin-left: 1rem;
+    text-align: left;
 }
 
 select:focus {
@@ -446,7 +460,6 @@ select:focus {
     padding: 0.4rem 0.7rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-transform: capitalize;
 }
 
 #new {
@@ -459,45 +472,121 @@ select:focus {
     text-align: center;
 }
 
-.ouvinte #popup-content {
+.ouvinte .popup-content {
     background-color: var(--beige);
     color: var(--black);
     border: 2px solid var(--black);
     text-align: left;
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 2rem;
     left: 50%;
-    top: 35%;
-    transform: translate(-15%, -50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
     position: fixed;
     z-index: 3;
 }
 
-#popup-content button {
+.popup-content button {
+    display: block;
+    margin: 0;
+    float: right
+}
+
+.popup-content button[name="searchlist"] {
+    display: inline-block;
+    margin: 0;
+    float: none
+}
+
+.popup-content .search {
     display: inline-block;
     margin: 0;
 }
 
-#popup-content .close {
-    margin-right: -2rem;
+.popup-content #search {
+    margin: 0;
+}
+
+.popup-content .close {
+    margin-right: -1rem;
     float: right;
     line-height: 0.5rem;
 }
 
-#popup-content label {
+.popup-content label {
     display: block;
+    margin-bottom: 1rem;
 }
 
-.artista #popup-content {
+.artista .popup-content .error {
+    text-align: left;
+    float: right;
+    margin: 0.6rem 1rem 0 0;
+}
+
+.ouvinte .popup-content .error {
+    text-align: left;
+    margin: 1.5rem 1rem 0 0;
+    float: right;
+}
+
+.popup-content input[type="text"] {
+    margin-left: 1rem;
+    text-align: left;
+    width: 20rem;
+}
+
+.popup-content input[type="number"] {
+    margin-left: 1rem;
+    text-align: left;
+    width: 3rem;
+}
+
+
+.artista .popup-content {
     background-color: var(--black);
     color: var(--beige);
     border: 2px solid var(--beige);
     text-align: left;
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 2rem;
     left: 50%;
-    top: 35%;
-    transform: translate(-15%, -50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
     position: fixed;
     z-index: 3;
+}
+
+.popup-content table {
+    margin-top: 1rem;
+}
+
+.popup-content table td {
+    font-size: 0.9rem;
+    padding: 0.2rem 0.7rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.popup-content button[name="newplaylist"] {
+    margin-top: 1rem;
+}
+
+.popup-content .mode {
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+
+.popup-content button[name="playlistmode"] {
+    margin-left: 1rem
+}
+
+#confirmation {
+    text-align: center;
+}
+
+#confirmation button {
+    display: inline-block;
+    margin: 1rem 0.1rem 0;
+    float: none;
 }
 
 .biblioteca #remove {

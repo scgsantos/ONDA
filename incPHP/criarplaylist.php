@@ -15,20 +15,15 @@ if (isset($_POST['playlistmode'])) {
         exit();
     }
 
-} else if (isset($_POST['selectsongs'])) {
-    $songs = $_POST['songs'];
-
+} else if (isset($_GET['id'])) {
+    $song_id = $_GET['id'];
     $search = $_GET['search'];
 
-    if (is_null($songs) !== false) {
-        header("Location: ../ouvinte/biblioteca/playlists.php?new&mode=manual&search=$search");
-        exit();
-    }
-    else {
-        header("Location: ../ouvinte/biblioteca/playlists.php?new&mode=manual&song=$songs");
-        exit();
-    }
+    if (isset($_GET['remove']))
+        header("Location: ../ouvinte/biblioteca/playlists.php?new&mode=manual&search=$search&remove&song=$song_id");
 
+    else header("Location: ../ouvinte/biblioteca/playlists.php?new&mode=manual&search=$search&song=$song_id");
+    exit();
 
 } else if (isset($_POST['newplaylist'])) {
     $mode = $_GET['mode'];
@@ -65,7 +60,7 @@ if (isset($_POST['playlistmode'])) {
         $songsnum = $_POST['songsnum'];
         $genre = $_POST['genre'];
 
-        if ((empty($songsnum) || empty($genre)) !== false) {
+        if ((empty($songsnum) || is_null($genre) || empty($name)) !== false) {
             header("location: ../ouvinte/biblioteca/playlists.php?new&mode=random&error=emptyfields");
             exit();
         }
