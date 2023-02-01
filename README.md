@@ -42,5 +42,5 @@ ONDA is a music streaming service that provides multiple features to both listen
 3. Create local repo of the project: ` git clone https://github.com/scgsantos/ONDA.git `
 4. Create PostgreSQL database named *ONDA*: ` createdb -U postgres ONDA `
 5. Restore from the db dump file in local repo [(+ info)](https://www.postgresql.org/docs/current/backup-dump.html): ` psql -U postgres ONDA < ONDAdb.sql `
-6. Go to directory containing repo folder and run ` php -S localhost:<port> -t ONDA `
+6. Go to local repo directory and run ` php -S localhost:<port> `
 7. Go to [http://localhost:&lt;port&gt;/home.html](http://localhost:port/home.html")
