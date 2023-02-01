@@ -37,9 +37,10 @@ ONDA is a music streaming service that provides multiple features to both listen
 <img src="preview/artista_newmusic.png" alt="artista_newmusic" width="500"/>
 
 ## Setup
-1. Make sure [PHP](https://www.php.net/downloads.php) and [PostgresSQL](https://www.postgresql.org/download/) are running on your machine
-2. Create local repo of the project: ` git clone https://github.com/scgsantos/ONDA.git `
-4. Create PostgreSQL database named *ONDA*: ` user=postgres password=postgres host=localhost port=5432 `
-5. Restore from [this](ONDAdb.sql) db dump file [(+ info)](https://www.postgresql.org/docs/current/backup-dump.html): ` psql ONDA < ONDAdb.sql `
+1. Make sure [PHP](https://www.php.net/downloads.php) is installed on your machine.
+2. Also, [PostgresSQL](https://www.postgresql.org/download/) must be running with ` user=postgres password=postgres host=localhost port=5432 ` 
+3. Create local repo of the project: ` git clone https://github.com/scgsantos/ONDA.git `
+4. Create PostgreSQL database named *ONDA*: ` createdb -U postgres ONDA `
+5. Restore from the db dump file in local repo [(+ info)](https://www.postgresql.org/docs/current/backup-dump.html): ` psql -U postgres ONDA < ONDAdb.sql `
 6. Go to directory containing repo folder and run ` php -S localhost:<port> -t ONDA `
 7. Go to [http://localhost:&lt;port&gt;/home.html](http://localhost:port/home.html")
