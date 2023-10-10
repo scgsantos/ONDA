@@ -14,10 +14,11 @@ if (isset($_POST["login"])) {
             header("location: ../artista/auth.php?error=l_emptyfields");
             exit();
         } else {
-            $result = pg_query($conn, "SELECT * FROM artists WHERE username = '$username' and password = '$pwd'") or die;
+            $result = pg_query($conn, "SELECT * FROM artists WHERE username = '$username'") or die;
             $rows = pg_num_rows($result);
 
             if ($rows > 0) {
+                $result = pg_query($conn, "SELECT * FROM artists WHERE username = '$username' and password = '$pwd'") or die;
                 $row = pg_fetch_array($result);
                 if ($row['username'] == $username && $row['password'] == $pwd) {
                     session_start();
@@ -46,18 +47,27 @@ if (isset($_POST["login"])) {
             header("location: ../ouvinte/auth.php?error=l_emptyfields");
             exit();
         } else {
-            $result = pg_query($conn, "SELECT * FROM clients WHERE username = '$username' AND password = '$pwd'") or die;
-            $row = pg_fetch_array($result);
+            $result = pg_query($conn, "SELECT * FROM clients WHERE username = '$username'") or die;
+            $rows = pg_num_rows($result);
 
-            if ($row['username'] == $username && $row['password'] == $pwd) {
-                session_start();
-                $_SESSION['username'] = $username;
-                $_SESSION['password'] = $pwd;
+            if ($rows > 0) {
+                $result = pg_query($conn, "SELECT * FROM clients WHERE username = '$username' and password = '$pwd'") or die;
+                $row = pg_fetch_array($result);
 
-                header("location: ../ouvinte/index.php");
-                exit();
-            } else {
-                header("location: ../ouvinte/auth.php?error=wronglogin");
+                if ($row['username'] == $username && $row['password'] == $pwd) {
+                    session_start();
+                    $_SESSION['username'] = $username;
+                    $_SESSION['password'] = $pwd;
+
+                    header("location: ../ouvinte/index.php");
+                    exit();
+                } else {
+                    header("location: ../ouvinte/auth.php?error=wronglogin");
+                    exit();
+                }
+            }
+            else {
+                header("location: ../ouvinte/auth.php?error=nonexistentuser");
                 exit();
             }
         }
