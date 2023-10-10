@@ -1,9 +1,9 @@
 <?php
 session_start();
-$str = "dbname=ONDA user=postgres password=postgres host=localhost port=5432";
+$str = "dbname=railway user=postgres password=A1wgDErIGszzRn96AAML host=containers-us-west-141.railway.app port=6790";
 $conn = pg_connect($str) or die ("Erro na ligação");
 
-if(!isset($_SESSION['username'])) header("location: ../home.html");
+if(!isset($_SESSION['username'])) header("location: ../index.php");
 else $userlogged = $_SESSION['username'];
 
 $songs = pg_query($conn, "SELECT * FROM songs WHERE artist = '$userlogged'") or die;

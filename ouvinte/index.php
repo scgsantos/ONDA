@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['username'])) header("location: ../home.html");
+if(!isset($_SESSION['username'])) header("location: ../index.php");
 else $userlogged = $_SESSION['username'];
 ?>
 

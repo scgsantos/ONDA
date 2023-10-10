@@ -1,5 +1,5 @@
 <?php
-$str = "dbname=ONDA user=postgres password=postgres host=localhost port=5432";
+$str = "dbname=railway user=postgres password=A1wgDErIGszzRn96AAML host=containers-us-west-141.railway.app port=6790";
 $conn = pg_connect($str) or die ("Erro na ligação");
 
 if (isset($_POST["sortlist"])) {

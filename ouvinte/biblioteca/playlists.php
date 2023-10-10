@@ -2,7 +2,7 @@
 $str = "dbname=ONDA user=postgres password=postgres host=localhost port=5432";
 $conn = pg_connect($str) or die ("Erro na ligação");
 
-if(!isset($_SESSION['username'])) header("location: ../../home.html");
+if(!isset($_SESSION['username'])) header("location: ../../index.php");
 else $userlogged = $_SESSION['username'];
 
 $playlists = pg_query($conn, "SELECT * FROM playlists WHERE author = '$userlogged'") or die;
