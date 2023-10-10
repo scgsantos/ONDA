@@ -11,21 +11,28 @@ if (isset($_POST["login"])) {
         $pwd = $_POST['pwd'];
 
         if ((empty($username) || empty($pwd)) !== false) {
-            header("location:../artista/auth.php?error=l_emptyfields");
+            header("location: ../artista/auth.php?error=l_emptyfields");
             exit();
         } else {
             $result = pg_query($conn, "SELECT * FROM artists WHERE username = '$username' and password = '$pwd'") or die;
-            $row = pg_fetch_array($result);
+            $rows = pg_num_rows($result);
 
-            if ($row['username'] == $username && $row['password'] == $pwd) {
-                session_start();
-                $_SESSION['username'] = $username;
-                $_SESSION['password'] = $pwd;
+            if ($rows > 0) {
+                $row = pg_fetch_array($result);
+                if ($row['username'] == $username && $row['password'] == $pwd) {
+                    session_start();
+                    $_SESSION['username'] = $username;
+                    $_SESSION['password'] = $pwd;
 
-                header("Location: ../artista/index.php");
-                exit();
-            } else {
-                header("location:../artista/auth.php?error=wronglogin");
+                    header("Location: ../artista/index.php");
+                    exit();
+                } else {
+                    header("location: ../artista/auth.php?error=wronglogin");
+                    exit();
+                }
+            }
+            else {
+                header("location: ../artista/auth.php?error=nonexistentuser");
                 exit();
             }
         }
@@ -36,7 +43,7 @@ if (isset($_POST["login"])) {
         $pwd = $_POST['pwd'];
 
         if ((empty($username) || empty($pwd)) !== false) {
-            header("location:../ouvinte/auth.php?error=l_emptyfields");
+            header("location: ../ouvinte/auth.php?error=l_emptyfields");
             exit();
         } else {
             $result = pg_query($conn, "SELECT * FROM clients WHERE username = '$username' AND password = '$pwd'") or die;

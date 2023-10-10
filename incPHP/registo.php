@@ -13,19 +13,19 @@ if (isset($_POST["registo"])) {
         $pwd_confirm = $_POST['pwd_confirm'];
 
         if ((empty($username) || empty($pwd) || empty($pwd_confirm) || empty($name)) !== false) {
-            header("location:../artista/auth.php?error=r_emptyfields");
+            header("location: ../artista/auth.php?error=r_emptyfields");
             exit();
         }
         else {
             $result = pg_query($conn, "SELECT * FROM artists WHERE username = '$username'") or die;
             $rows = pg_num_rows($result);
             if ($rows > 0) {
-                header("location:../artista/auth.php?error=usernametaken");
+                header("location: ../artista/auth.php?error=usernametaken");
                 exit();
             }
             else {
                 if (($pwd !== $pwd_confirm) !== false) {
-                    header("location:../artista/auth.php?error=differentpwds");
+                    header("location: ../artista/auth.php?error=differentpwds");
                     exit();
                 }
                 else {

@@ -25,6 +25,7 @@
         if (isset($_GET["error"])) {
             if ($_GET["error"] == "l_emptyfields") echo "<p class='error'>Preencha todos os campos</p>";
             else if ($_GET["error"] == "wronglogin") echo "<p class='error'>Username e/ou password errados</p>";
+            else if ($_GET["error"] == "nonexistentuser") echo "<p class='error'>Username não existe</p>";
         }
         ?>
     </div>
