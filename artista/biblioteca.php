@@ -99,16 +99,16 @@ $song = pg_fetch_all($songs);
             <label>Género
             <select form="newsong" name="genre" id="genre">
               <option value="null">seleciona um</option>
-              <option value="rock">Rock</option>
-              <option value="blues">Blues</option>
-              <option value="classical">Classical</option>
-              <option value="country">Country</option>
-              <option value="electronic">Electronic</option>
-              <option value="folk">Folk</option>
-              <option value="hiphop">Hip-Hop</option>
-              <option value="jazz">Jazz</option>
-              <option value="newage">New Age</option>
-              <option value="pop">Pop</option>
+              <option value="Rock">Rock</option>
+              <option value="Blues">Blues</option>
+              <option value="Classical">Classical</option>
+              <option value="Country">Country</option>
+              <option value="Electronic">Electronic</option>
+              <option value="Folk">Folk</option>
+              <option value="Hiphop">Hip-Hop</option>
+              <option value="Jazz">Jazz</option>
+              <option value="New Age">New Age</option>
+              <option value="Pop">Pop</option>
             </select></label>
             <button form="newsong" type="submit" name="newsong" class="artistasbtn">Adicionar</button>';
 
